@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    @font-face {
+    font-family: 'CookieRun-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    h1 {
+        font-family: 'CookieRun-Regular';
+    }
+    
+    a {
+        text-decoration-line: none;
+    }
+    .memo-create {
+        background-color: aqua;
+    }
+
+    .memo-list {
+        background-color: bisque;
+    }
+
+    table {
+        border: 2px solid black;
+        border-collapse: collapse;
+        width: 100%
+    }
+</style>
+<body>
+    <h1>메모장</h1>
+    <div class="memo-create">
+    <a href="{% url 'note_create' %}">메모생성</a><br>
+    <!-- html 안에서 python 코드 사용하기 -->
+    </div>
+    <div class="memo-list">
+        <table>
+            <tr>
+            {% for note in notes %}
+            <a href="{% url 'note_detail' note.pk %}">{{note}}</a><br>
+            {% endfor %}
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

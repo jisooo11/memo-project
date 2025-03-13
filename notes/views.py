@@ -4,7 +4,7 @@ from .forms import NoteForm
 
 
 # Create your views here.
-# 메모 목록을 띄우는 코드
+# 메모 목록
 def note_list(request):
     notes = Note.objects.all()
     # render: html 파일과 연결하겠다
@@ -33,3 +33,24 @@ def note_create(request):
 def note_detail(request, pk):
     note = get_object_or_404(Note, pk=pk)
     return render(request, "notes/note_detail.html", {"note": note})
+
+
+# 메모장 수정
+def note_edit(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    # 메모장을 사용자가 수정을 완료했을 때
+    if request.method == "POST":
+        # 수정
+        form = NoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+            return redirect("note_detail", pk=note.pk)
+    else:
+        form = NoteForm(instance=note)
+        return render(request, "notes/note_create.html", {"form": form})
+
+
+def note_delete(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    note.delete()  # 데이터베이스 삭제
+    return redirect("note_list")

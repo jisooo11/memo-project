@@ -3,11 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>메모 상세보기</title>
+    <style>
+
+        /* 눈누 폰트 */
+        @font-face {
+            font-family: 'CookieRun-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'CookieRun-Regular', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1.title {
+            font-size: 30px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .memo-detail {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .memo-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .memo-content {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .memo-time {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #FF6B6B;
+            color: white;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
-    {{note.title}}<br>
-    {{note.context}}<br>
-    {{note.create_at}}
+    <h1 class="title">메모 상세보기</h1>
+    <div class="memo-detail">
+        <h2 class="memo-title">{{ note.title }}</h2>
+        <p class="memo-content">{{ note.context }}</p>
+        <p class="memo-time">생성 시간: {{ note.create_at }}</p>
+        <div class="btn-group">
+            <a class="btn" href="{% url 'note_edit' note.pk %}">수정하기</a>
+            <a class="btn" href="{% url 'note_list' %}">목록으로</a>
+        </div>
+    </div>
 </body>
 </html>
